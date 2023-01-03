@@ -21,10 +21,10 @@ export default function TopBar() {
 			<div className="topRight">
 				<img
 					className="topImg "
-					src="https://unsplash.com/photos/xecnI5MOL74"
+					src="https://images.unsplash.com/photo-1581263518256-ba4a28ed5517?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80"
 					alt=""
 				/>
-				<i class="fa-solid fa-magnifying-glass"></i>
+				<i className="topSearchIcon fa-solid fa-magnifying-glass"></i>
 			</div>
 		</div>
 	);
