@@ -20,7 +20,7 @@ mongoose
 	.catch((err) => console.log(err));
 
 app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
+app.use("/api/users", userRoute);
 
 app.listen("5000", () => {
 	console.log("Backend is running");
