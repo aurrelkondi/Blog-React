@@ -88,5 +88,6 @@ router.get("/", async (req, res) => {
 		res.status(500).json(err);
 	}
 });
+const users = 1;
 
 module.exports = router;
