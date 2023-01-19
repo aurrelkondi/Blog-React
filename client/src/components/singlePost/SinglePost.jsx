@@ -1,19 +1,30 @@
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./singlePost.css";
 
 export default function SinglePost() {
 	const location = useLocation();
-	console.log(location.pathname.split("/")[2]);
+	const path = location.pathname.split("/")[2];
+	const [post, setPost] = useState({});
+
+	useEffect(() => {
+		const getPost = async () => {
+			const res = await axios.get("/posts/" + path);
+			setPost(res.data);
+		};
+		getPost();
+	}, [path]);
+
 	return (
 		<div className="singlePost">
 			<div className="singlePostWrapper">
-				<img
-					className="singlePostImg"
-					src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-					alt=""
-				/>
+				{post.photo && (
+					<img className="singlePostImg" src={post.photo} alt="" />
+				)}
 				<h1 className="singlePostTitle">
-					Lorem ipsum dolor sit amet.
+					{post.title}
 					<div className="singlePostEdit">
 						<i className="singlePostIcon fa-regular fa-pen-to-square"></i>
 						<i className="singlePostIcon fa-regular fa-trash-can"></i>
@@ -21,29 +32,13 @@ export default function SinglePost() {
 				</h1>
 				<div className="singlePostInfo">
 					<span className="singlePostAuthor">
-						Author: <b>Aurrel</b>{" "}
+						Author: <b>{post.username}</b>{" "}
 					</span>
-					<span className="singlePostDate">1 hour ago</span>
+					<span className="singlePostDate">
+						{new Date(post.createdAt).toDateString}
+					</span>
 				</div>
-				<p className="singlePostDescription">
-					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non sit illo
-					in reprehenderit eos nihil magnam nisi dolores expedita adipisci
-					blanditiis modi ipsam labore fuga ea consectetur esse iste, optio
-					aspernatur natus. Possimus, architecto nam exercitationem assumenda
-					fugit doloremque officia debitis aliquid expedita molestiae alias
-					repellendus omnis nostrum dolorum earum. Lorem, ipsum dolor sit amet
-					consectetur adipisicing elit. In recusandae ducimus esse veniam alias
-					culpa, optio doloribus placeat tempora, iusto minima quis corrupti,
-					unde maiores itaque cupiditate at dignissimos. Autem quisquam totam,
-					quam dolores veniam dolor. Quaerat illum nostrum officiis atque quam
-					vitae, voluptatem labore corrupti, hic numquam itaque esse! Delectus
-					iste libero autem! Ad molestias eum possimus sint saepe reiciendis at
-					iusto quidem nemo, commodi error laudantium dolorem dolorum omnis
-					officiis laboriosam repellendus labore id dolores, ab sequi beatae
-					quaerat pariatur. Perferendis error doloribus amet voluptas autem
-					aliquam saepe tempore illum, omnis odit ducimus hic harum laborum.
-					Nihil, nam.
-				</p>
+				<p className="singlePostDescription">{post.desc}</p>
 			</div>
 		</div>
 	);
